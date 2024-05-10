@@ -35,7 +35,7 @@ public class Ed25519KeyGenerator {
                     String publicKeyBase64 = Base64.getEncoder().encodeToString(publicKey);
                     String privateKeyBase64 = Base64.getEncoder().encodeToString(privateKey);
 
-                    if (publicKeyBase64.startsWith("Sekator")) {  // Перевірте вашу конкретну умову тут
+                    if (publicKeyBase64.toLowerCase().startsWith("sekator")) {  // Перевірка з ігноруванням регістру
                         System.out.println("Public Key (Base64): " + publicKeyBase64);
                         System.out.println("Private Key (Base64): " + privateKeyBase64);
                         found.set(true);
