@@ -1,5 +1,6 @@
 package org.example;
 
+import org.bitcoinj.core.Base58;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator;
 import org.bouncycastle.crypto.params.Ed25519KeyGenerationParameters;
@@ -7,13 +8,12 @@ import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters;
 import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters;
 
 import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Ed25519KeyGenerator {
+public class SolanaKeyGenerator {
     public static void main(String[] args) throws InterruptedException {
         int numThreads = Runtime.getRuntime().availableProcessors(); // Кількість ядер процесора
         ExecutorService executor = Executors.newFixedThreadPool(numThreads);
@@ -34,12 +34,12 @@ public class Ed25519KeyGenerator {
                     byte[] publicKey = publicKeyParams.getEncoded();
                     byte[] privateKey = privateKeyParams.getEncoded();
 
-                    String publicKeyBase64 = Base64.getEncoder().encodeToString(publicKey);
-                    String privateKeyBase64 = Base64.getEncoder().encodeToString(privateKey);
+                    String publicKeyBase58 = Base58.encode(publicKey);
+                    String privateKeyBase58 = Base58.encode(privateKey);
 
-                    if (publicKeyBase64.startsWith("ivan")) {  // Перевірка з ігноруванням регістру
-                        System.out.println("Public Key (Base64): " + publicKeyBase64);
-                        System.out.println("Private Key (Base64): " + privateKeyBase64);
+                    if (publicKeyBase58.startsWith("ivan")) {
+                        System.out.println("Solana Public Key (Base58): " + publicKeyBase58);
+                        System.out.println("Solana Private Key (Base58): " + privateKeyBase58);
                         found.set(true);
                         break;
                     }
